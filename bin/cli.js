@@ -1,8 +1,8 @@
 #! /usr/bin/env node
-import { dirname } from "path";
-import meow from "meow";
-import { findUp } from "find-up";
-import { lib } from "../lib/index.js";
+import { dirname } from 'path';
+import meow from 'meow';
+import { findUp } from 'find-up';
+import { lib } from '../dist/cli.js';
 
 const cli = meow(
   `
@@ -20,14 +20,14 @@ const cli = meow(
     importMeta: import.meta,
     flags: {
       help: {
-        type: "boolean",
-        alias: "h",
+        type: 'boolean',
+        alias: 'h'
       },
       version: {
-        type: "boolean",
-        alias: "v",
-      },
-    },
+        type: 'boolean',
+        alias: 'v'
+      }
+    }
   }
 );
 
@@ -36,16 +36,16 @@ const cli = meow(
     cli.showVersion(1);
   }
 
-  if (command === "help") {
+  if (command === 'help') {
     cli.showHelp();
     process.exit(1);
   }
 
-  const configPath = await findUp("delver.config.js");
+  const configPath = await findUp('delver.config.js');
 
   if (!configPath) {
     console.error(
-      "Please add delver.config.js to the root directory your project."
+      'Please add delver.config.js to the root directory your project.'
     );
     process.exit(1);
   }
@@ -57,7 +57,7 @@ const cli = meow(
   const delver = await lib(
     {
       cwd: dirname(configPath),
-      configPath,
+      configPath
     },
     exit
   );
