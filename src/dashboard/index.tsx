@@ -11,8 +11,8 @@ import {
 } from '@tanstack/react-table';
 import data, { Row } from '__delverData';
 
-import { Button } from '~/components/button';
-import { Thr, Tr } from '~/components/tableComponents';
+import { Button } from '@src/components/button';
+import { Thr, Tr } from '@src/components/tableComponents';
 import {
   NameHeaderCell,
   NameCell,
@@ -20,7 +20,7 @@ import {
   InstancesCell,
   FromHeaderCell,
   FromCell
-} from '~/components/cells';
+} from '@src/components/cells';
 
 const table = createTable()
   .setRowType<Row>()

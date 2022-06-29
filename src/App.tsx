@@ -1,7 +1,7 @@
 import React from 'react';
 import { Box } from '@sweatpants/box';
-import { Theme } from '~/components/theme';
-import { Table } from '~/dashboard';
+import { Theme } from '@src/components/theme';
+import { Table } from '@src/dashboard';
 
 const config = __delverConfig;
 

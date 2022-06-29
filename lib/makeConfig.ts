@@ -12,6 +12,7 @@ export const makeConfig = (
     root: config.root,
     resolve: {
       alias: {
+        '@src': resolve(config.root, 'src'),
         __delverData: resolve(config.cwd, '.delverui/data.json'),
         react: resolve(config.cwd, 'node_modules/react'),
         'react-dom': resolve(config.cwd, 'node_modules/react-dom')

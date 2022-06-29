@@ -15,7 +15,7 @@
     "resolveJsonModule": true,
     "jsx": "react",
     "paths": {
-      "~/*": ["src/*"]
+      "@src/*": ["src/*"]
     }
   },
   "include": ["src/**/*.ts", "src/**/*.tsx", "lib/**/*.ts"],
