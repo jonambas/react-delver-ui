@@ -13,7 +13,10 @@
     "moduleResolution": "node",
     "declaration": false,
     "resolveJsonModule": true,
-    "jsx": "react"
+    "jsx": "react",
+    "paths": {
+      "~/*": ["src/*"]
+    }
   },
   "include": ["src/**/*.ts", "src/**/*.tsx", "lib/**/*.ts"],
   "exclude": ["node_modules"]
