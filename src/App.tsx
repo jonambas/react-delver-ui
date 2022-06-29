@@ -43,7 +43,7 @@ const columns = [
 const Table = () => {
   const [pagination, setPagination] = React.useState<PaginationState>({
     pageIndex: 0,
-    pageSize: 1
+    pageSize: 50
   });
 
   const instance = useTableInstance(table, {

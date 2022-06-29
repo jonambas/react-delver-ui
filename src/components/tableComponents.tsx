@@ -1,20 +1,30 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Box } from '@sweatpants/box';
-import type { Header } from '@tanstack/react-table';
+import type { Header, Overwrite } from '@tanstack/react-table';
 import type { Row } from '__delverData';
 
-export const Th = (props: React.PropsWithChildren<{}>) => {
-  const { children, ...rest } = props;
+export const Th = (props: Header<any>) => {
+  const { renderHeader, id } = props;
+
+  let width = 'auto';
+  if (id === 'count') {
+    width = '25%';
+  }
+
+  if (id === 'name') {
+    width = '45%';
+  }
+
   return (
-    <Box as="th" textAlign="left" {...rest}>
-      {props.children}
+    <Box as="th" textAlign="left" width={width}>
+      {renderHeader()}
     </Box>
   );
 };
 
 type ThrProps = {
-  headers: Record<string, any>[];
+  headers: Header<any>[];
 };
 
 export const Thr = (props: ThrProps) => {
@@ -22,8 +32,8 @@ export const Thr = (props: ThrProps) => {
 
   return (
     <Box as="tr" {...rest}>
-      {headers.map((col) => {
-        return <Th key={col.id}>{col.renderHeader()}</Th>;
+      {headers.map(({ id, ...rest }) => {
+        return <Th key={id} id={id} {...rest} />;
       })}
     </Box>
   );
