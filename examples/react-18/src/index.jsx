@@ -15,6 +15,7 @@ function ComponentA() {
 function ComponentB() {
   return (
     <>
+      <ComponentA />
       <Foo
         string="string"
         implicitTrue

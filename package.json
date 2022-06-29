@@ -30,22 +30,30 @@
     "npm": "^18.13.1"
   },
   "dependencies": {
+    "@sweatpants/box": "^0.0.8",
+    "@sweatpants/button": "^0.0.7",
+    "@sweatpants/screenreaderonly": "^0.0.7",
+    "@sweatpants/stack": "^0.0.7",
+    "@sweatpants/theme": "^0.0.7",
+    "@tanstack/react-table": "8.0.0-beta.9",
     "boxen": "^7.0.0",
-    "chalk": "^5.0.1",
     "esbuild": "^0.14.47",
     "esbuild-loader": "^2.19.0",
     "find-up": "^6.3.0",
     "html-webpack-plugin": "^5.5.0",
     "meow": "^10.1.3",
+    "picocolors": "^1.0.0",
     "react-delver": "^0.1.2",
     "rimraf": "^3.0.2",
-    "webpack": "^5.73.0",
-    "webpack-dev-server": "^4.9.2"
+    "styled-components": "^5.3.5",
+    "vite": "^2.9.13"
   },
   "devDependencies": {
     "@rollup/plugin-node-resolve": "^13.3.0",
     "@rollup/plugin-typescript": "^8.3.3",
     "prettier": "^2.7.1",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
     "rollup": "^2.75.7",
     "tslib": "^2.4.0",
     "typescript": "^4.7.4"

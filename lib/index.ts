@@ -4,7 +4,7 @@ import { start } from './start';
 import { parse } from './parse';
 // import build from './build';
 import rimraf from 'rimraf';
-import { shouldUse18, logError, loadConfigFromFile } from './utils';
+import { shouldUse18, logError, cyan, dim, loadConfigFromFile } from './utils';
 import type { InternalConfig } from './types';
 
 const __filename = fileURLToPath(import.meta.url);
@@ -45,8 +45,6 @@ export const lib: Lib = async ({ configPath, cwd }, exit) => {
   const userConfig = await loadConfigFromFile(configPath, exit);
   const config = makeDefaultConfig({ ...userConfig, cwd, use18, root });
 
-  parse(config);
-
   const handleError = (err) => {
     if (err) {
       logError(err);
@@ -56,9 +54,14 @@ export const lib: Lib = async ({ configPath, cwd }, exit) => {
 
   return {
     start: () => {
+      console.log(cyan('➜ Starting React Delver UI'));
+      parse(config);
+      console.log(dim('➜ Starting dev server\n'));
       start(config, handleError);
     },
     build: () => {
+      console.log(cyan('➜ Building React Delver UI\n'));
+      parse(config);
       rimraf.sync(config.outputPath);
       // build(config, handleError);
     }

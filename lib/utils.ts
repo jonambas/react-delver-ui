@@ -2,36 +2,14 @@ import fs from 'fs';
 import { resolve } from 'path';
 import { pathToFileURL } from 'url';
 import { build } from 'esbuild';
-import boxen from 'boxen';
-import chalk from 'chalk';
+import pc from 'picocolors';
 import type { InternalConfig } from './types';
 
-export const green = chalk.hex('#25F578');
-export const gray = chalk.gray;
-export const red = chalk.hex('#FF5252');
-
-type PrettyStartArgs = {
-  port: string | number;
-  v4: string;
-  duration?: number;
-};
-
-export const prettyStart = ({ port, v4, duration }: PrettyStartArgs): void => {
-  const header = green('Libby is running at');
-  const local = green(`▸ Local     http://localhost:${port}/`);
-  const network = green(`▸ Network   http://${v4}:${port}/`);
-  // const time = gray(`Started in ${(duration / 1000).toFixed(2)}s.`);
-  const output = `${header}\n${local}\n${network}`;
-  console.log(boxen(output, { padding: 1, borderColor: '#25F578' }) + '\n');
-};
-
-// export const prettyBuild = ({ duration, path }) => {
-//   const header = green(`Libby built in ${(duration / 1000).toFixed(2)}s`);
-//   const loc = green(`▸ ${path}`);
-//   const npx = gray(`npx serve ${path}`);
-//   const output = `${header}\n${loc}\n${npx}`;
-//   console.log(boxen(output, { padding: 1, borderColor: '#25F578' }) + '\n');
-// };
+export const green = pc.green;
+export const dim = (s: string) => pc.dim(pc.white(s));
+export const red = pc.red;
+export const cyan = pc.cyan;
+export const bold = pc.bold;
 
 export const logError = (err: string): void => {
   console.log(red(`React Delver UI Error\n\n${err}`));

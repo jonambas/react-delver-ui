@@ -10,8 +10,8 @@
   "author": "jonambas",
   "license": "MIT",
   "dependencies": {
-    "react-delver-ui": "../../",
     "react": "^18.2.0",
+    "react-delver-ui": "../../",
     "react-dom": "^18.2.0"
   }
 }
