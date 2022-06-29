@@ -6,7 +6,8 @@ import {
   getCoreRowModel,
   getPaginationRowModel,
   getFilteredRowModel,
-  PaginationState
+  PaginationState,
+  filterFns
 } from '@tanstack/react-table';
 import data, { Row } from '__delverData';
 
@@ -24,15 +25,26 @@ import {
 
 const config = __delverConfig;
 
-const table = createTable().setRowType<Row>();
+const table = createTable()
+  .setRowType<Row>()
+  .setOptions({
+    enableFilters: true,
+    enableColumnFilters: true,
+    filterFns: {
+      global: filterFns.includesString
+    }
+  });
+
 const columns = [
   table.createDataColumn('name', {
     header: NameHeaderCell,
-    cell: NameCell
+    cell: NameCell,
+    filterFn: 'global'
   }),
   table.createDataColumn('from', {
     header: FromHeaderCell,
-    cell: FromCell
+    cell: FromCell,
+    filterFn: 'global'
   }),
   table.createDataColumn('count', {
     header: InstancesHeaderCell,
@@ -41,6 +53,7 @@ const columns = [
 ];
 
 const Table = () => {
+  const [global, setGlobal] = React.useState('');
   const [pagination, setPagination] = React.useState<PaginationState>({
     pageIndex: 0,
     pageSize: 50
@@ -50,8 +63,11 @@ const Table = () => {
     data,
     columns,
     state: {
-      pagination
+      pagination,
+      globalFilter: global
     },
+    globalFilterFn: 'global',
+    onGlobalFilterChange: setGlobal,
     onPaginationChange: setPagination,
     getCoreRowModel: getCoreRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
@@ -60,6 +76,12 @@ const Table = () => {
 
   return (
     <>
+      <input
+        value={global}
+        onChange={(e) => setGlobal(e.currentTarget.value)}
+        placeholder="Search..."
+        type="text"
+      />
       <Box
         as="table"
         width="100%"
