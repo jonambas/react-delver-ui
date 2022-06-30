@@ -1,8 +1,9 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { Box } from '@sweatpants/box';
 import { InlineCode } from './inlineCode';
 
-export const NameHeaderCell = () => {
+export const NameHeaderCell = (): JSX.Element => {
   return (
     <Box fontWeight="400" fontSize="300">
       Name
@@ -10,7 +11,7 @@ export const NameHeaderCell = () => {
   );
 };
 
-export const InstancesHeaderCell = () => {
+export const InstancesHeaderCell = (): JSX.Element => {
   return (
     <Box fontWeight="400" fontSize="300">
       Instances
@@ -18,7 +19,7 @@ export const InstancesHeaderCell = () => {
   );
 };
 
-export const FromHeaderCell = () => {
+export const FromHeaderCell = (): JSX.Element => {
   return (
     <Box fontWeight="400" fontSize="300">
       From
@@ -26,15 +27,26 @@ export const FromHeaderCell = () => {
   );
 };
 
-export const NameCell = (props) => {
+type CellProps = {
+  getValue?: () => string | number;
+};
+
+export const NameCell = (props: CellProps): JSX.Element => {
   return (
-    <Box py="200" px="200" fontWeight="600" fontSize="300">
+    <Box
+      as={Link}
+      to={`/component/${String(props.getValue()).toLowerCase()}`}
+      py="200"
+      px="200"
+      fontWeight="600"
+      fontSize="300"
+    >
       {props.getValue()}
     </Box>
   );
 };
 
-export const InstancesCell = (props) => {
+export const InstancesCell = (props: CellProps): JSX.Element => {
   return (
     <Box
       py="200"
@@ -51,7 +63,7 @@ export const InstancesCell = (props) => {
   );
 };
 
-export const FromCell = (props) => {
+export const FromCell = (props: CellProps): JSX.Element => {
   return (
     <Box py="200" px="200" fontWeight="400" fontSize="300">
       <InlineCode>{props.getValue()}</InlineCode>

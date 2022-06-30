@@ -1,12 +1,15 @@
-import React, { ComponentPropsWithoutRef, FC } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import css from '@styled-system/css';
 import { buttonReset } from '@sweatpants/button';
+import { polymorphicForwardRef } from '@sweatpants/utils';
 
 const StyledButton = styled.button`
   ${buttonReset}
+  display: inline-block;
   transition: 0.15s;
   user-select: none;
+  text-decoration: none;
 
   ${({ disabled }) =>
     css({
@@ -33,6 +36,8 @@ const StyledButton = styled.button`
   }
 `;
 
-export const Button: FC<ComponentPropsWithoutRef<'button'>> = (props) => {
+export const Button = polymorphicForwardRef<'button', {}>(function Button(
+  props
+) {
   return <StyledButton type="button" {...props} />;
-};
+});

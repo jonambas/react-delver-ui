@@ -37,6 +37,7 @@
     "@sweatpants/screenreaderonly": "^0.0.7",
     "@sweatpants/stack": "^0.0.7",
     "@sweatpants/theme": "^0.0.7",
+    "@sweatpants/utils": "^0.0.7",
     "@tanstack/react-table": "8.0.0-beta.9",
     "boxen": "^7.0.0",
     "esbuild": "^0.14.47",
@@ -46,6 +47,8 @@
     "meow": "^10.1.3",
     "picocolors": "^1.0.0",
     "react-delver": "^0.1.2",
+    "react-router": "^6.3.0",
+    "react-router-dom": "^6.3.0",
     "rimraf": "^3.0.2",
     "vite": "^2.9.13"
   },

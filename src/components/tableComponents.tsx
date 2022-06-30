@@ -2,7 +2,7 @@ import React, { FC, PropsWithChildren } from 'react';
 import styled from 'styled-components';
 import css from '@styled-system/css';
 import { Box } from '@sweatpants/box';
-import type { Header, SortDirection } from '@tanstack/react-table';
+import type { Header, SortDirection, Cell } from '@tanstack/react-table';
 import { ArrowDown, ArrowUp } from '@src/components/icons';
 import { Button } from '@src/components/button';
 
@@ -98,16 +98,20 @@ export const Td = (props: React.PropsWithChildren<{}>) => {
 };
 
 const StyledTr = styled.tr`
-  border-bottom: 1px solid ${({ theme }) => theme.colors.gray[200]};
+  ${css({
+    borderBottom: '400'
+  })}
+
   td {
     transition: 0.1s;
   }
-  &:hover td {
-    background: ${({ theme }) => theme.colors.gray[100]};
-  }
 `;
 
-export const Tr = (props: { cells: any }) => {
+type TrProps = {
+  cells?: Array<Cell<any>>;
+};
+
+export const Tr: FC<PropsWithChildren<TrProps>> = (props) => {
   const { cells, ...rest } = props;
   return (
     <StyledTr as="tr" {...rest}>

@@ -1,19 +1,21 @@
 import React from 'react';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { Box } from '@sweatpants/box';
 import { Theme } from '@src/components/theme';
-import { Table } from '@src/dashboard';
-
-const config = __delverConfig;
+import { Dashboard } from '@src/dashboard';
+import { Details } from '@src/details';
 
 export const App = () => {
   return (
-    <Theme>
-      <Box as="main" mx="auto" my="800" width="80%" maxWidth="700px">
-        <Box as="h1" fontSize="500" mb="600">
-          {config.title}
+    <BrowserRouter>
+      <Theme>
+        <Box as="main" mx="auto" my="800" width="80%" maxWidth="700px">
+          <Routes>
+            <Route path="/" element={<Dashboard />} />
+            <Route path="/component/:name" element={<Details />} />
+          </Routes>
         </Box>
-        <Table />
-      </Box>
-    </Theme>
+      </Theme>
+    </BrowserRouter>
   );
 };

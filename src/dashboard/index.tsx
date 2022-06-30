@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FC } from 'react';
 import { Box } from '@sweatpants/box';
 import {
   createTable,
@@ -9,7 +9,6 @@ import {
   getSortedRowModel,
   PaginationState,
   filterFns,
-  sortingFns,
   SortingState
 } from '@tanstack/react-table';
 import data, { Row } from '__delverData';
@@ -27,6 +26,8 @@ import {
 import { TextField } from '@src/components/textfield';
 import { Search } from '@src/components/icons';
 import { Select } from '@src/components/select';
+
+const config = __delverConfig;
 
 const fromOptions = data
   .filter(({ from }) => from !== 'indeterminate')
@@ -66,16 +67,16 @@ const columns = [
   }),
   table.createDataColumn('count', {
     header: InstancesHeaderCell,
-    cell: InstancesCell
+    cell: (props) => <InstancesCell {...props} />,
+    filterFn: 'global'
   })
 ];
 
-export const Table = () => {
+const Table = () => {
   const [global, setGlobal] = React.useState({ search: '', from: '' });
   const [sorting, setSorting] = React.useState<SortingState>([
     { id: 'count', desc: true }
   ]);
-  console.log(sorting);
   const [pagination, setPagination] = React.useState<PaginationState>({
     pageIndex: 0,
     pageSize: 50
@@ -177,6 +178,17 @@ export const Table = () => {
           </Box>
         </>
       )}
+    </>
+  );
+};
+
+export const Dashboard: FC<{}> = (props) => {
+  return (
+    <>
+      <Box as="h1" fontSize="500" mb="600">
+        {config.title}
+      </Box>
+      <Table />
     </>
   );
 };
