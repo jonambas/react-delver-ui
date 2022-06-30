@@ -10,7 +10,7 @@ document.head.appendChild(ss);
 const GlobalStyle = createGlobalStyle`
   * {
     box-sizing: border-box;
-    color: ${({ theme }) => theme.colors.gray[1000]}
+    color: #000;
   }
   a {
     transition: 0.15s;

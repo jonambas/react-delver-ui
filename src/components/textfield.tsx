@@ -13,9 +13,6 @@ const StyledWrapper = styled(Box)`
     box-shadow: 0 0 0 2px #fff,
       0 0 0 4px ${({ theme }) => theme.colors.gray[800]};
   }
-
-  input:focus {
-  }
 `;
 const StyledInput = styled(Box)`
   border: none;
@@ -33,12 +30,12 @@ export const TextField: React.FC<TextFieldProps> = (props) => {
   return (
     <StyledWrapper
       borderRadius="200"
-      // bg="gray.100"
+      height="38px"
       py="2px"
       px="300"
       border="400"
     >
-      <Box display="flex" alignItems="center">
+      <Box display="flex" alignItems="center" height="100%">
         <Box mt="2px">{icon && icon}</Box>
         <StyledInput
           as="input"
@@ -46,7 +43,7 @@ export const TextField: React.FC<TextFieldProps> = (props) => {
           width="100%"
           fontSize="300"
           px="200"
-          py="200"
+          height="100%"
           {...rest}
         />
       </Box>

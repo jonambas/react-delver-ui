@@ -49,14 +49,20 @@ export const parse = (config: InternalConfig) => {
 
   const enriched = result.reduce((acc: any, component: ProcessedResult) => {
     const instances = component.instances;
-    const sameFrom = instances.every((v, i, a) => v.from === a[0].from);
+    const sameFrom = instances.every((v, i, a) => {
+      if (!v.from) {
+        return false;
+      }
+      return v.from === a[0].from;
+    });
+
     const firstFrom = instances[0].from;
 
     // Move to node api
     acc.push({
       ...component,
-      from: sameFrom ? firstFrom : 'mixed',
-      module: sameFrom ? isModule(firstFrom) : 'mixed'
+      from: sameFrom ? firstFrom : 'indeterminate',
+      module: sameFrom ? isModule(firstFrom) : 'indeterminate'
     });
     return acc;
   }, [] as ProcessedResult[]);
