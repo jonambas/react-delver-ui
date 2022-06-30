@@ -51,9 +51,6 @@ const table = createTable()
         return show;
       }
     }
-    // sortingFns: {
-    //   count: sortingFns.alphanumeric
-    // }
   });
 
 const columns = [
@@ -75,7 +72,10 @@ const columns = [
 
 export const Table = () => {
   const [global, setGlobal] = React.useState({ search: '', from: '' });
-  const [sorting, setSorting] = React.useState<SortingState>([]);
+  const [sorting, setSorting] = React.useState<SortingState>([
+    { id: 'count', desc: true }
+  ]);
+  console.log(sorting);
   const [pagination, setPagination] = React.useState<PaginationState>({
     pageIndex: 0,
     pageSize: 50
@@ -90,7 +90,6 @@ export const Table = () => {
       sorting
     },
     globalFilterFn: 'global',
-    // onGlobalFilterChange: setGlobal,
     onSortingChange: setSorting,
     onPaginationChange: setPagination,
     getCoreRowModel: getCoreRowModel(),
@@ -128,7 +127,7 @@ export const Table = () => {
         </Box>
       </Box>
 
-      <Box fontSize="200" mb="600" color="gray.500">
+      <Box fontSize="100" mb="600">
         Showing {instance.getFilteredRowModel().rows.length} of{' '}
         {instance.getCoreRowModel().rows.length} components
       </Box>
@@ -157,7 +156,7 @@ export const Table = () => {
               })}
             </tbody>
           </Box>
-          <Box my="200" display="flex" justifyContent="space-between">
+          <Box my="200" display="flex" justifyContent="space-between" pr="200">
             <Box fontSize="200" my="200">
               Page {pagination.pageIndex + 1} of {instance.getPageCount()}
             </Box>

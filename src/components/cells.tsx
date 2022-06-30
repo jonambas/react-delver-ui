@@ -3,7 +3,7 @@ import { Box } from '@sweatpants/box';
 
 export const NameHeaderCell = () => {
   return (
-    <Box py="200" px="200" fontWeight="400" fontSize="300">
+    <Box fontWeight="400" fontSize="300">
       Name
     </Box>
   );
@@ -11,7 +11,7 @@ export const NameHeaderCell = () => {
 
 export const InstancesHeaderCell = () => {
   return (
-    <Box py="200" px="200" fontWeight="400" fontSize="300">
+    <Box fontWeight="400" fontSize="300">
       Instances
     </Box>
   );
@@ -19,7 +19,7 @@ export const InstancesHeaderCell = () => {
 
 export const FromHeaderCell = () => {
   return (
-    <Box py="200" fontWeight="400" fontSize="300">
+    <Box fontWeight="400" fontSize="300">
       From
     </Box>
   );
@@ -52,7 +52,7 @@ export const InstancesCell = (props) => {
 
 export const FromCell = (props) => {
   return (
-    <Box py="200" fontWeight="400" fontSize="300">
+    <Box py="200" px="200" fontWeight="400" fontSize="300">
       {props.getValue()}
     </Box>
   );

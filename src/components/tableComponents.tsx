@@ -3,19 +3,12 @@ import styled from 'styled-components';
 import css from '@styled-system/css';
 import { Box } from '@sweatpants/box';
 import type { Header, SortDirection } from '@tanstack/react-table';
-import { buttonReset } from '@sweatpants/button';
+import { ArrowDown, ArrowUp } from '@src/components/icons';
+import { Button } from '@src/components/button';
 
-const StyledSortButton = styled.button`
-  ${buttonReset}
-
-  ${css({
-    // fontSize: '300',
-    // px: '300',
-    // py: '0',
-    // border: '400',
-    borderRadius: '200',
-    color: 'gray.900'
-  })}
+const StyledSortButton = styled(Button)`
+  display: flex;
+  align-items: center;
 
   &:focus-visible {
     outline: none;
@@ -30,10 +23,20 @@ export const ThSort: FC<
     toggle?: (e: unknown) => void;
   }>
 > = (props) => {
-  const { children, toggle } = props;
+  const { children, toggle, isSorted } = props;
+  const icon =
+    isSorted === 'desc' ? (
+      <ArrowDown />
+    ) : isSorted === 'asc' ? (
+      <ArrowUp />
+    ) : null;
+
   return (
-    <StyledSortButton as="button" onClick={(e) => toggle(e)}>
+    <StyledSortButton type="button" onClick={(e) => toggle(e)}>
       {children}
+      <Box as="span" display="inline-flex" pl="100">
+        {icon}
+      </Box>
     </StyledSortButton>
   );
 };
@@ -55,7 +58,7 @@ export const Th: FC<Header<any>> = (props) => {
   }
 
   return (
-    <Box as="th" width={width}>
+    <Box as="th" pb="100" width={width}>
       <Box display="flex" justifyContent={align}>
         {getCanSort() ? (
           <ThSort isSorted={getIsSorted()} toggle={getToggleSortingHandler()}>
