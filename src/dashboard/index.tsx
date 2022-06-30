@@ -6,8 +6,11 @@ import {
   getCoreRowModel,
   getPaginationRowModel,
   getFilteredRowModel,
+  getSortedRowModel,
   PaginationState,
-  filterFns
+  filterFns,
+  sortingFns,
+  SortingState
 } from '@tanstack/react-table';
 import data, { Row } from '__delverData';
 
@@ -42,13 +45,15 @@ const table = createTable()
         if (!filterFns.includesString(row, columnId, search, addMeta)) {
           show = false;
         }
-        // console.log();
         if (from && row.getValue('from') !== from) {
           show = false;
         }
         return show;
       }
     }
+    // sortingFns: {
+    //   count: sortingFns.alphanumeric
+    // }
   });
 
 const columns = [
@@ -70,6 +75,7 @@ const columns = [
 
 export const Table = () => {
   const [global, setGlobal] = React.useState({ search: '', from: '' });
+  const [sorting, setSorting] = React.useState<SortingState>([]);
   const [pagination, setPagination] = React.useState<PaginationState>({
     pageIndex: 0,
     pageSize: 50
@@ -80,14 +86,17 @@ export const Table = () => {
     columns,
     state: {
       pagination,
-      globalFilter: global
+      globalFilter: global,
+      sorting
     },
     globalFilterFn: 'global',
     // onGlobalFilterChange: setGlobal,
+    onSortingChange: setSorting,
     onPaginationChange: setPagination,
     getCoreRowModel: getCoreRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
-    getFilteredRowModel: getFilteredRowModel()
+    getFilteredRowModel: getFilteredRowModel(),
+    getSortedRowModel: getSortedRowModel()
   });
 
   const noResults = instance.getFilteredRowModel().rows.length === 0;

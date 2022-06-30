@@ -1,7 +1,7 @@
 import React from 'react';
 import { Box } from '@sweatpants/box';
 
-export const NameHeaderCell = (props) => {
+export const NameHeaderCell = () => {
   return (
     <Box py="200" px="200" fontWeight="400" fontSize="300">
       Name
@@ -9,15 +9,15 @@ export const NameHeaderCell = (props) => {
   );
 };
 
-export const InstancesHeaderCell = (props) => {
+export const InstancesHeaderCell = () => {
   return (
-    <Box py="200" px="200" fontWeight="400" fontSize="300" textAlign="right">
+    <Box py="200" px="200" fontWeight="400" fontSize="300">
       Instances
     </Box>
   );
 };
 
-export const FromHeaderCell = (props) => {
+export const FromHeaderCell = () => {
   return (
     <Box py="200" fontWeight="400" fontSize="300">
       From

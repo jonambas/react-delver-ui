@@ -1,15 +1,53 @@
-import React from 'react';
+import React, { FC, PropsWithChildren } from 'react';
 import styled from 'styled-components';
+import css from '@styled-system/css';
 import { Box } from '@sweatpants/box';
-import type { Header, Overwrite } from '@tanstack/react-table';
-import type { Row } from '__delverData';
+import type { Header, SortDirection } from '@tanstack/react-table';
+import { buttonReset } from '@sweatpants/button';
 
-export const Th = (props: Header<any>) => {
-  const { renderHeader, id } = props;
+const StyledSortButton = styled.button`
+  ${buttonReset}
+
+  ${css({
+    // fontSize: '300',
+    // px: '300',
+    // py: '0',
+    // border: '400',
+    borderRadius: '200',
+    color: 'gray.900'
+  })}
+
+  &:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 2px #fff,
+      0 0 0 4px ${({ theme }) => theme.colors.gray[800]};
+  }
+`;
+
+export const ThSort: FC<
+  PropsWithChildren<{
+    isSorted?: false | SortDirection;
+    toggle?: (e: unknown) => void;
+  }>
+> = (props) => {
+  const { children, toggle } = props;
+  return (
+    <StyledSortButton as="button" onClick={(e) => toggle(e)}>
+      {children}
+    </StyledSortButton>
+  );
+};
+
+export const Th: FC<Header<any>> = (props) => {
+  const { renderHeader, id, column, ...rest } = props;
+  const { getCanSort, getIsSorted, getToggleSortingHandler } = column;
 
   let width = 'auto';
+  let align = 'start';
+
   if (id === 'count') {
     width = '25%';
+    align = 'end';
   }
 
   if (id === 'name') {
@@ -17,8 +55,16 @@ export const Th = (props: Header<any>) => {
   }
 
   return (
-    <Box as="th" textAlign="left" width={width}>
-      {renderHeader()}
+    <Box as="th" width={width}>
+      <Box display="flex" justifyContent={align}>
+        {getCanSort() ? (
+          <ThSort isSorted={getIsSorted()} toggle={getToggleSortingHandler()}>
+            {renderHeader()}
+          </ThSort>
+        ) : (
+          renderHeader()
+        )}
+      </Box>
     </Box>
   );
 };
@@ -42,7 +88,7 @@ export const Thr = (props: ThrProps) => {
 export const Td = (props: React.PropsWithChildren<{}>) => {
   const { children, ...rest } = props;
   return (
-    <Box as="td" textAlign="left" {...rest}>
+    <Box as="td" {...rest}>
       {props.children}
     </Box>
   );
