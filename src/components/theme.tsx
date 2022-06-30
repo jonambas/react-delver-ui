@@ -10,7 +10,6 @@ document.head.appendChild(ss);
 const GlobalStyle = createGlobalStyle`
   * {
     box-sizing: border-box;
-    color: #000;
   }
   a {
     transition: 0.15s;
@@ -60,6 +59,7 @@ const theme = {
   colors: {
     gray: {
       '50': '#F9F9FC',
+      '75': '#F4F6FB',
       '100': '#ECEFF8',
       '200': '#D8DEEB',
       '300': '#C3CDDD',
@@ -72,7 +72,9 @@ const theme = {
       '1000': '#000'
     },
     blue: {
-      focus: 'rgba(69, 143, 255, 1)'
+      bg: '#DDE9FF',
+      active: '#0057FF',
+      activeText: '#003CB0'
     }
   },
   borders: {

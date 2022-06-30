@@ -1,11 +1,11 @@
 import React, { FC, PropsWithChildren } from 'react';
-import styled from 'styled-components';
 import { Box } from '@sweatpants/box';
 import { Link } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
 import { Button } from '@src/components/button';
 import { useComponent } from '@src/hooks';
 import { ArrowLeft } from '@src/components/icons';
+import { Table } from './table';
 
 const Back: FC<PropsWithChildren> = () => {
   return (
@@ -37,6 +37,7 @@ export const Details: FC = () => {
           {component.instances.length.toLocaleString()} instances found
         </Box>
       </Box>
+      <Table instances={component.instances} />
     </Box>
   );
 };

@@ -13,7 +13,7 @@ const StyledSortButton = styled(Button)`
   &:focus-visible {
     outline: none;
     box-shadow: 0 0 0 2px #fff,
-      0 0 0 4px ${({ theme }) => theme.colors.gray[800]};
+      0 0 0 4px ${({ theme }) => theme.colors.blue.active};
   }
 `;
 
@@ -32,7 +32,7 @@ export const ThSort: FC<
     ) : null;
 
   return (
-    <StyledSortButton type="button" onClick={(e) => toggle(e)}>
+    <StyledSortButton onClick={toggle} active={isSorted !== false}>
       {children}
       <Box as="span" display="inline-flex" pl="100">
         {icon}
@@ -53,7 +53,11 @@ export const Th: FC<Header<any>> = (props) => {
     align = 'end';
   }
 
-  if (id === 'name') {
+  if (id === 'location') {
+    width = '25%';
+  }
+
+  if (id === 'name' || id === 'props') {
     width = '45%';
   }
 
@@ -104,6 +108,13 @@ const StyledTr = styled.tr`
 
   td {
     transition: 0.1s;
+    vertical-align: center;
+  }
+
+  &:hover td {
+    ${css({
+      bg: 'gray.75'
+    })}
   }
 `;
 

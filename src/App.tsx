@@ -9,7 +9,7 @@ export const App = () => {
   return (
     <BrowserRouter>
       <Theme>
-        <Box as="main" mx="auto" my="800" width="80%" maxWidth="700px">
+        <Box as="main" mx="auto" my="800" width="90%" maxWidth="1100px">
           <Routes>
             <Route path="/" element={<Dashboard />} />
             <Route path="/component/:name" element={<Details />} />

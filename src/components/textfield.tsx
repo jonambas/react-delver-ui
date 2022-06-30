@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { css } from '@styled-system/css';
 import { Box } from '@sweatpants/box';
 
 type TextFieldProps = React.ComponentPropsWithoutRef<'input'> & {
@@ -11,17 +12,20 @@ const StyledWrapper = styled(Box)`
   transition: 0.15s;
   &:focus-within {
     box-shadow: 0 0 0 2px #fff,
-      0 0 0 4px ${({ theme }) => theme.colors.gray[800]};
+      0 0 0 4px ${({ theme }) => theme.colors.blue.active};
   }
 `;
+
 const StyledInput = styled(Box)`
   border: none;
   background: none;
   outline: none;
 
   ::placeholder {
-    color: ${({ theme }) => theme.colors.gray[900]};
-    font-size: ${({ theme }) => theme.fontSizes[300]};
+    ${css({
+      color: 'gray.900',
+      fontSize: '300'
+    })}
   }
 `;
 

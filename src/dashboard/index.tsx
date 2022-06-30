@@ -11,17 +11,16 @@ import {
   filterFns,
   SortingState
 } from '@tanstack/react-table';
+import uniqby from 'lodash.uniqby';
 import data, { Row } from '__delverData';
 
 import { Button } from '@src/components/button';
 import { Thr, Tr } from '@src/components/tableComponents';
 import {
-  NameHeaderCell,
+  HeaderCell,
   NameCell,
-  InstancesHeaderCell,
-  InstancesCell,
-  FromHeaderCell,
-  FromCell
+  FromCell,
+  InstancesCell
 } from '@src/components/cells';
 import { TextField } from '@src/components/textfield';
 import { Search } from '@src/components/icons';
@@ -32,6 +31,7 @@ const config = __delverConfig;
 const fromOptions = data
   .filter(({ from }) => from !== 'indeterminate')
   .map(({ from }) => ({ value: from, text: from }));
+const uniqFromOptions = uniqby(fromOptions, ({ value }) => value);
 
 const table = createTable()
   .setRowType<Row>()
@@ -56,17 +56,17 @@ const table = createTable()
 
 const columns = [
   table.createDataColumn('name', {
-    header: NameHeaderCell,
+    header: (p) => <HeaderCell id={p.header.id} />,
     cell: NameCell,
     filterFn: 'global'
   }),
   table.createDataColumn('from', {
-    header: FromHeaderCell,
+    header: (p) => <HeaderCell id={p.header.id} />,
     cell: FromCell,
     filterFn: 'global'
   }),
   table.createDataColumn('count', {
-    header: InstancesHeaderCell,
+    header: (p) => <HeaderCell id={p.header.id} />,
     cell: (props) => <InstancesCell {...props} />,
     filterFn: 'global'
   })
@@ -122,7 +122,7 @@ const Table = () => {
               onValueChange={(v) =>
                 setGlobal({ from: v, search: global.search })
               }
-              options={fromOptions}
+              options={uniqFromOptions}
             />
           </div>
         </Box>

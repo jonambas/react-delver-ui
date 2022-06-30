@@ -6,7 +6,7 @@ export const InlineCode: FC<PropsWithChildren<{}>> = (props) => {
     <Box
       display="inline-block"
       fontFamily="mono"
-      fontSize="0.82em"
+      fontSize="0.8em"
       bg="gray.100"
       px="3px"
       py="3px"

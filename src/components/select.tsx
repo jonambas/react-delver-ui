@@ -22,7 +22,7 @@ const StyledTrigger = styled(Button)`
   &:focus {
     outline: none;
     box-shadow: 0 0 0 2px #fff,
-      0 0 0 4px ${({ theme }) => theme.colors.gray[800]};
+      0 0 0 4px ${({ theme }) => theme.colors.blue.active};
   }
 `;
 
@@ -45,8 +45,7 @@ type SelectProps = RSelect.SelectProps & {
 
 const StyledOptionText = styled(Box)`
   ${css({
-    fontSize: '300',
-    color: 'gray.800'
+    fontSize: '300'
   })}
 `;
 
@@ -62,15 +61,15 @@ const StyledOption = styled(Box)`
 
   &:hover, &:focus {
     outline: none;
-    ${css({ bg: 'gray.200' })}
+    ${css({ bg: 'blue.active' })}
     ${StyledOptionText} {
-      ${css({ color: 'gray.900' })}
+      ${css({ color: 'white' })}
     }
   }
 
   ${(props) => {
     if (props['data-state'] === 'checked') {
-      return css({ fontWeight: '600' });
+      return css({ color: 'blue.active' });
     }
   }}
 `;
