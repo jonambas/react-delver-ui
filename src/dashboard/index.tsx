@@ -21,6 +21,8 @@ import {
   FromHeaderCell,
   FromCell
 } from '@src/components/cells';
+import { TextField } from '@src/components/textfield';
+import { Search } from '@src/components/icons';
 
 const table = createTable()
   .setRowType<Row>()
@@ -73,12 +75,19 @@ export const Table = () => {
 
   return (
     <>
-      <input
-        value={global}
-        onChange={(e) => setGlobal(e.currentTarget.value)}
-        placeholder="Search..."
-        type="text"
-      />
+      <Box mb="200">
+        <TextField
+          icon={<Search />}
+          value={global}
+          onChange={(e) => setGlobal(e.currentTarget.value)}
+          placeholder="Search..."
+          type="text"
+        />
+      </Box>
+      <Box fontSize="200" mb="600" color="gray.500">
+        Showing {instance.getFilteredRowModel().rows.length} of{' '}
+        {instance.getCoreRowModel().rows.length} components
+      </Box>
       <Box
         as="table"
         width="100%"
@@ -117,7 +126,6 @@ export const Table = () => {
           </Button>
         </div>
       </Box>
-      {/* <div>{instance.getRowModel().rows.length} Rows</div> */}
     </>
   );
 };

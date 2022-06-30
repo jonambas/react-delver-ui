@@ -31,7 +31,7 @@ export const Thr = (props: ThrProps) => {
   const { headers, ...rest } = props;
 
   return (
-    <Box as="tr" borderBottom="1px solid #000" borderColor="gray.100" {...rest}>
+    <Box as="tr" borderBottom="1px solid #000" borderColor="gray.200" {...rest}>
       {headers.map(({ id, ...rest }) => {
         return <Th key={id} id={id} {...rest} />;
       })}
@@ -49,7 +49,7 @@ export const Td = (props: React.PropsWithChildren<{}>) => {
 };
 
 const StyledTr = styled.tr`
-  border-bottom: 1px solid ${({ theme }) => theme.colors.gray[100]};
+  border-bottom: 1px solid ${({ theme }) => theme.colors.gray[200]};
   td {
     transition: 0.1s;
   }

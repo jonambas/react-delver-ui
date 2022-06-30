@@ -67,7 +67,13 @@ const theme = {
       '800': '#283B52',
       '900': '#0E233C',
       '1000': '#000'
+    },
+    blue: {
+      focus: 'rgba(69, 143, 255, 1)'
     }
+  },
+  borders: {
+    400: '1px solid #D8DEEB'
   }
 };
 
