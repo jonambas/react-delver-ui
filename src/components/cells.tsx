@@ -1,5 +1,6 @@
 import React from 'react';
 import { Box } from '@sweatpants/box';
+import { InlineCode } from './inlineCode';
 
 export const NameHeaderCell = () => {
   return (
@@ -53,7 +54,7 @@ export const InstancesCell = (props) => {
 export const FromCell = (props) => {
   return (
     <Box py="200" px="200" fontWeight="400" fontSize="300">
-      {props.getValue()}
+      <InlineCode>{props.getValue()}</InlineCode>
     </Box>
   );
 };

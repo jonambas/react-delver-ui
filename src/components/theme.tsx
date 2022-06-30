@@ -36,6 +36,9 @@ const theme = {
       sans: "'Inter', -apple-system, BlinkMacSystemFont, 'San Francisco', 'Segoe UI', Roboto, Helvetica, sans-serif;"
     }
   },
+  fonts: {
+    mono: "ui-monospace, Menlo, Monaco,'Cascadia Mono', 'Segoe UI Mono','Roboto Mono','Oxygen Mono','Ubuntu Monospace','Source Code Pro', 'Fira Mono','Droid Sans Mono','Courier New', monospace"
+  },
   radii: {
     0: '0px',
     100: '1px',
