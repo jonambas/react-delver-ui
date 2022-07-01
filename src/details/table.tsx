@@ -1,4 +1,5 @@
 import React, { FC } from 'react';
+import type { Instance } from 'react-delver';
 import {
   createTable,
   useTableInstance,
@@ -11,7 +12,6 @@ import {
   Cell
 } from '@tanstack/react-table';
 import { Box } from '@sweatpants/box';
-import { Row } from '__delverData';
 import { Button } from '@src/components/button';
 import { Thr, Tr } from '@src/components/tableComponents';
 import {
@@ -24,9 +24,6 @@ import {
 } from '@src/components/cells';
 
 import { RowExpandContext, RowExpandContextProvider } from './expandContext';
-
-type RowType<T> = T extends Array<infer Single> ? Single : never;
-type Instance = RowType<Row['instances']>;
 
 const table = createTable().setRowType<Instance>();
 
@@ -57,7 +54,7 @@ const columns = [
   })
 ];
 
-export const Table: FC<{ instances: Row['instances'] }> = (props) => {
+export const Table: FC<{ instances: Array<Instance> }> = (props) => {
   const { instances } = props;
 
   const [sorting, setSorting] = React.useState<SortingState>([

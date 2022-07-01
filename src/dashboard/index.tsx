@@ -13,7 +13,8 @@ import {
 } from '@tanstack/react-table';
 import uniqby from 'lodash.uniqby';
 import { useNavigate } from 'react-router-dom';
-import data, { Row } from '__delverData';
+import data from '__delverData';
+import type { Result } from 'react-delver';
 
 import { Button } from '@src/components/button';
 import { Thr, Tr } from '@src/components/tableComponents';
@@ -35,7 +36,7 @@ const fromOptions = data
 const uniqFromOptions = uniqby(fromOptions, ({ value }) => value);
 
 const table = createTable()
-  .setRowType<Row>()
+  .setRowType<Result>()
   .setOptions({
     enableFilters: true,
     enableColumnFilters: true,

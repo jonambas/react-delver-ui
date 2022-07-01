@@ -1,38 +1,11 @@
 import fs from 'fs';
 import { resolve } from 'path';
-import { delve } from 'react-delver';
+import { delve, Result } from 'react-delver';
 import { dim } from './utils';
 import type { InternalConfig } from './types';
 
-type Props = Array<{
-  value: string | boolean | number;
-  name: string;
-}>;
-
-type Instance = {
-  name: string;
-  spread: boolean;
-  props: Props;
-  from?: string;
-  location: {
-    file: string;
-    line: number;
-    character: number;
-  };
-};
-
-type ProcessedResult = {
-  name: string;
-  count: number;
-  instances: Array<Instance>;
-};
-
-const isModule = (string?: string): boolean => {
-  return string ? !Boolean(string.match(/^[\.~\/]/)) : false;
-};
-
 export const parse = (config: InternalConfig) => {
-  const result = delve(config) as ProcessedResult[];
+  const result = delve(config) as Result[];
 
   const dir = resolve(config.cwd, '.delverui');
   const filePath = resolve(config.cwd, '.delverui/data.json');
@@ -47,27 +20,7 @@ export const parse = (config: InternalConfig) => {
 
   console.log(dim(`➜ Found ${result.length} unique components`));
 
-  const enriched = result.reduce((acc: any, component: ProcessedResult) => {
-    const instances = component.instances;
-    const sameFrom = instances.every((v, i, a) => {
-      if (!v.from) {
-        return false;
-      }
-      return v.from === a[0].from;
-    });
-
-    const firstFrom = instances[0].from;
-
-    // Move to node api
-    acc.push({
-      ...component,
-      from: sameFrom ? firstFrom : 'indeterminate',
-      module: sameFrom ? isModule(firstFrom) : 'indeterminate'
-    });
-    return acc;
-  }, [] as ProcessedResult[]);
-
-  fs.writeFileSync(filePath, JSON.stringify(enriched), {
+  fs.writeFileSync(filePath, JSON.stringify(result), {
     encoding: 'utf-8'
   });
 };

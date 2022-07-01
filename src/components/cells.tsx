@@ -2,11 +2,11 @@ import React from 'react';
 import styled from 'styled-components';
 import { css } from '@styled-system/css';
 import { Link } from 'react-router-dom';
+import type { Props } from 'react-delver';
 import { Box } from '@sweatpants/box';
 import { ScreenReaderOnly } from '@sweatpants/screenreaderonly';
 import { Inline } from '@sweatpants/inline';
 import { InlineCode } from './inlineCode';
-import { Props } from '__delverData';
 import { Button } from './button';
 import { RowExpandContext } from '@src/details/expandContext';
 
@@ -164,12 +164,14 @@ export const PropsCell = (props: PropsCellProps): JSX.Element => {
         lineHeight="1.5em"
       >
         {p.map((prop) => {
+          const isString =
+            typeof prop.value === 'string' && prop.expression === false;
           return (
             <React.Fragment key={prop.name}>
               <Box fontWeight="600" pr="200" style={{ wordBreak: 'break-all' }}>
                 {prop.name}
               </Box>
-              <Box>{String(prop.value)}</Box>
+              <Box>{isString ? `"${prop.value}"` : String(prop.value)}</Box>
             </React.Fragment>
           );
         })}
