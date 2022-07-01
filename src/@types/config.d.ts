@@ -1,1 +1,2 @@
-declare const __delverConfig: Record<any, any>;
+type Config = import('../../types').Config;
+declare const __delverConfig: Config;

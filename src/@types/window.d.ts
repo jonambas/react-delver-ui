@@ -1,7 +1,8 @@
 export {};
 
 declare global {
+  type Config = import('../../types').Config;
   interface Window {
-    __delverConfig: Record<any, any>;
+    __delverConfig: Config;
   }
 }

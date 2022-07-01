@@ -1,4 +1,5 @@
 declare module '__delverData' {
-  const data: Array<any>;
+  type Result = import('react-delver').Result;
+  const data: Array<Result>;
   export default data;
 }

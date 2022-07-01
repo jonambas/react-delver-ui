@@ -1,8 +1,7 @@
-import data, { Row } from '__delverData';
+import data from '__delverData';
+import type { Result } from 'react-delver';
 
-type Component = Row;
-
-export const useComponent = (name: string): Component => {
+export const useComponent = (name: string): Result => {
   const component = data.find(
     (row) => row.name.toLowerCase() === name.toLowerCase()
   );
