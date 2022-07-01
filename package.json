@@ -26,9 +26,6 @@
     "url": "https://github.com/jonambas/react-delver-ui/issues"
   },
   "homepage": "https://github.com/jonambas/react-delver-ui#readme",
-  "engines": {
-    "npm": "^18.13.1"
-  },
   "dependencies": {
     "@radix-ui/react-select": "^0.1.2-rc.50",
     "@styled-system/css": "^5.1.5",
