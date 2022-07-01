@@ -14,6 +14,11 @@ const StyledWrapper = styled(Box)`
     box-shadow: 0 0 0 2px #fff,
       0 0 0 4px ${({ theme }) => theme.colors.blue.active};
   }
+  &:hover {
+    ${css({
+      borderColor: 'blue.active'
+    })}
+  }
 `;
 
 const StyledInput = styled(Box)`

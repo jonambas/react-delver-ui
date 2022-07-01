@@ -19,6 +19,12 @@ const StyledTrigger = styled(Button)`
     color: 'gray.900'
   })}
 
+  &:hover {
+    ${css({
+      borderColor: 'blue.active'
+    })}
+  }
+
   &:focus {
     outline: none;
     box-shadow: 0 0 0 2px #fff,

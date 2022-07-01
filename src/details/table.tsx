@@ -7,7 +7,6 @@ import {
   getFilteredRowModel,
   getSortedRowModel,
   PaginationState,
-  filterFns,
   SortingState
 } from '@tanstack/react-table';
 import { Box } from '@sweatpants/box';
@@ -23,8 +22,9 @@ import {
   ActionCell
 } from '@src/components/cells';
 
-type RowType<T> = T extends Array<infer Single> ? Single : never;
+import { RowExpandContextProvider } from './expandContext';
 
+type RowType<T> = T extends Array<infer Single> ? Single : never;
 type Instance = RowType<Row['instances']>;
 
 const table = createTable().setRowType<Instance>();
@@ -39,14 +39,15 @@ const columns = [
     header: (p) => <HeaderCell id={p.header.id} />,
     cell: FromCell
   }),
-  table.createDataColumn('props', {
-    id: 'props',
-    header: (p) => <HeaderCell id={p.header.id} />,
-    cell: PropsCell
-  }),
   table.createDataColumn('spread', {
     header: (p) => <HeaderCell id={p.header.id} />,
     cell: SpreadCell
+  }),
+  table.createDataColumn('props', {
+    id: 'props',
+    header: (p) => <HeaderCell id={p.header.id} />,
+    cell: PropsCell,
+    enableSorting: false
   }),
   table.createDataColumn('props', {
     id: 'actions',
@@ -100,7 +101,11 @@ export const Table: FC<{ instances: Row['instances'] }> = (props) => {
         </thead>
         <tbody>
           {instance.getRowModel().rows.map((row) => {
-            return <Tr key={row.id} cells={row.getVisibleCells()} />;
+            return (
+              <RowExpandContextProvider>
+                <Tr key={row.id} cells={row.getVisibleCells()} />
+              </RowExpandContextProvider>
+            );
           })}
         </tbody>
       </Box>

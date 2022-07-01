@@ -54,7 +54,11 @@ export const Th: FC<Header<any>> = (props) => {
   }
 
   if (id === 'location') {
-    width = '25%';
+    width = '20%';
+  }
+
+  if (id === 'actions') {
+    width = '10%';
   }
 
   if (id === 'name' || id === 'props') {
@@ -108,7 +112,7 @@ const StyledTr = styled.tr`
 
   td {
     transition: 0.1s;
-    vertical-align: center;
+    vertical-align: top;
   }
 
   &:hover td {
