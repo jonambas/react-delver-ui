@@ -26,6 +26,7 @@ const StyledTrigger = styled(Button)`
   }
 
   &:focus {
+    border: 1px solid transparent;
     outline: none;
     box-shadow: 0 0 0 2px #fff,
       0 0 0 4px ${({ theme }) => theme.colors.blue.active};
@@ -36,8 +37,7 @@ const StyledContainer = styled(Box)`
   ${css({
     p: '100',
     bg: 'white',
-    borderRadius: '300',
-    fontSize: '300',
+    borderRadius: '200',
     boxShadow: '0 5px 20px #ECEFF8, 0 2px 8px #C3CDDD'
   })}
 `;

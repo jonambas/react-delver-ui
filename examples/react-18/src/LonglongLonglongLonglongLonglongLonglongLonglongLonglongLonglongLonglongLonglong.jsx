@@ -1,5 +1,5 @@
 import { Relative } from './package/a';
-import { Relative2 } from '../../package/b';
+import { Relative2 } from '../../../../../../../../package/b';
 
 function ComponentA() {
   return (
