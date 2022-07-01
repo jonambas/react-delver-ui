@@ -1,7 +1,4 @@
 import { createServer } from 'vite';
-import { resolve } from 'path';
-// import webpack from 'webpack';
-// import WebpackDevServer from 'webpack-dev-server';
 import { makeConfig } from './makeConfig';
 import type { InternalConfig } from './types';
 

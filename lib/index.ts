@@ -2,7 +2,7 @@ import { resolve, dirname } from 'path';
 import { fileURLToPath } from 'url';
 import { start } from './start';
 import { parse } from './parse';
-// import build from './build';
+import { build } from './build';
 import rimraf from 'rimraf';
 import { shouldUse18, logError, cyan, dim, loadConfigFromFile } from './utils';
 import type { InternalConfig } from './types';
@@ -56,14 +56,15 @@ export const lib: Lib = async ({ configPath, cwd }, exit) => {
     start: () => {
       console.log(cyan('➜ Starting React Delver UI'));
       parse(config);
-      console.log(dim('➜ Starting dev server\n'));
+      console.log(dim('➜ Starting dev server...\n'));
       start(config, handleError);
     },
     build: () => {
-      console.log(cyan('➜ Building React Delver UI\n'));
+      console.log(cyan('➜ Building React Delver UI'));
       parse(config);
+      console.log(dim('➜ Building app...\n'));
       rimraf.sync(config.outputPath);
-      // build(config, handleError);
+      build(config, handleError);
     }
   };
 };

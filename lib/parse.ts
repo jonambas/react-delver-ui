@@ -5,6 +5,7 @@ import { dim } from './utils';
 import type { InternalConfig } from './types';
 
 export const parse = (config: InternalConfig) => {
+  console.log(dim(`➜ Delving...`));
   const result = delve(config) as Result[];
 
   const dir = resolve(config.cwd, '.delverui');
