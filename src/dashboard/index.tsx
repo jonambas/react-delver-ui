@@ -1,15 +1,16 @@
 import React, { FC } from 'react';
 import { Box } from '@sweatpants/box';
 import {
-  createTable,
-  useTableInstance,
+  useReactTable,
   getCoreRowModel,
   getPaginationRowModel,
   getFilteredRowModel,
   getSortedRowModel,
   PaginationState,
   filterFns,
-  SortingState
+  SortingState,
+  ColumnDef,
+  FilterFn
 } from '@tanstack/react-table';
 import uniqby from 'lodash.uniqby';
 import { useNavigate } from 'react-router-dom';
@@ -35,43 +36,41 @@ const fromOptions = data
   .map(({ from }) => ({ value: from, text: from }));
 const uniqFromOptions = uniqby(fromOptions, ({ value }) => value);
 
-const table = createTable()
-  .setRowType<Result>()
-  .setOptions({
-    enableFilters: true,
-    enableColumnFilters: true,
-    filterFns: {
-      global: (row, columnId, values = {}, addMeta) => {
-        const { search, from } = values;
-        let show = true;
+const filter: FilterFn<Result> = (row, columnId, values = {}, addMeta) => {
+  const { search, from } = values;
+  let show = true;
 
-        if (!filterFns.includesString(row, columnId, search, addMeta)) {
-          show = false;
-        }
-        if (from && row.getValue('from') !== from) {
-          show = false;
-        }
-        return show;
-      }
-    }
-  });
+  if (!filterFns.includesString(row, columnId, search, addMeta)) {
+    show = false;
+  }
+  if (from && row.getValue('from') !== from) {
+    show = false;
+  }
+  return show;
+};
 
-const columns = [
-  table.createDataColumn('name', {
-    header: (p) => <HeaderCell id={p.header.id} />,
+const columns: ColumnDef<Result>[] = [
+  {
+    accessorKey: 'name',
+    header: HeaderCell,
     cell: NameCell,
-    filterFn: 'global'
-  }),
-  table.createDataColumn('from', {
-    header: (p) => <HeaderCell id={p.header.id} />,
+    enableGlobalFilter: true,
+    enableSorting: true
+  },
+  {
+    accessorKey: 'from',
+    header: HeaderCell,
     cell: FromCell,
-    filterFn: 'global'
-  }),
-  table.createDataColumn('count', {
-    header: (p) => <HeaderCell id={p.header.id} />,
+    enableGlobalFilter: true,
+    enableSorting: true
+  },
+  {
+    accessorKey: 'count',
+    header: HeaderCell,
     cell: (props) => <InstancesCell {...props} />,
-    filterFn: 'global'
-  })
+    enableGlobalFilter: true,
+    enableSorting: true
+  }
 ];
 
 const Table = () => {
@@ -85,7 +84,7 @@ const Table = () => {
     pageSize: 50
   });
 
-  const instance = useTableInstance(table, {
+  const instance = useReactTable({
     data,
     columns,
     state: {
@@ -93,13 +92,13 @@ const Table = () => {
       globalFilter: global,
       sorting
     },
-    globalFilterFn: 'global',
-    onSortingChange: setSorting,
-    onPaginationChange: setPagination,
-    getCoreRowModel: getCoreRowModel(),
+    globalFilterFn: filter,
+    getCoreRowModel: getCoreRowModel<Result>(),
     getPaginationRowModel: getPaginationRowModel(),
+    getSortedRowModel: getSortedRowModel(),
     getFilteredRowModel: getFilteredRowModel(),
-    getSortedRowModel: getSortedRowModel()
+    onSortingChange: setSorting,
+    onPaginationChange: setPagination
   });
 
   const noResults = instance.getFilteredRowModel().rows.length === 0;
@@ -151,7 +150,7 @@ const Table = () => {
           >
             <thead>
               {instance.getHeaderGroups().map((group) => {
-                return <Thr key={group.id} headers={group.headers}></Thr>;
+                return <Thr key={group.id} headers={group.headers} />;
               })}
             </thead>
             <tbody>

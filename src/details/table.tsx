@@ -1,15 +1,15 @@
 import React, { FC } from 'react';
 import type { Instance } from 'react-delver';
 import {
-  createTable,
-  useTableInstance,
+  useReactTable,
   getCoreRowModel,
   getPaginationRowModel,
   getFilteredRowModel,
   getSortedRowModel,
   PaginationState,
   SortingState,
-  Cell
+  Cell,
+  ColumnDef
 } from '@tanstack/react-table';
 import { Box } from '@sweatpants/box';
 import { Button } from '@src/components/button';
@@ -25,33 +25,35 @@ import {
 
 import { RowExpandContext, RowExpandContextProvider } from './expandContext';
 
-const table = createTable().setRowType<Instance>();
-
-const columns = [
-  table.createDataColumn((r) => r.location.file, {
-    id: 'location',
-    header: (p) => <HeaderCell id={p.header.id} />,
+const columns: ColumnDef<Instance>[] = [
+  {
+    accessorKey: 'location',
+    accessorFn: (instance) => instance.location.file,
+    header: HeaderCell,
     cell: LocationCell
-  }),
-  table.createDataColumn('from', {
-    header: (p) => <HeaderCell id={p.header.id} />,
+  },
+  {
+    accessorKey: 'from',
+    header: HeaderCell,
     cell: FromCell
-  }),
-  table.createDataColumn('spread', {
-    header: (p) => <HeaderCell id={p.header.id} />,
+  },
+  {
+    accessorKey: 'spread',
+    header: HeaderCell,
     cell: SpreadCell
-  }),
-  table.createDataColumn('props', {
-    id: 'props',
-    header: (p) => <HeaderCell id={p.header.id} />,
+  },
+  {
+    accessorKey: 'props',
+    header: HeaderCell,
     cell: PropsCell
-  }),
-  table.createDataColumn('props', {
+  },
+  {
+    accessorKey: 'props',
     id: 'actions',
     header: null,
     enableSorting: false,
     cell: (p) => <ActionCell data={p.row.getValue('props')} />
-  })
+  }
 ];
 
 export const Table: FC<{ instances: Array<Instance> }> = (props) => {
@@ -66,7 +68,7 @@ export const Table: FC<{ instances: Array<Instance> }> = (props) => {
     pageSize: 50
   });
 
-  const instance = useTableInstance(table, {
+  const instance = useReactTable({
     data: instances,
     columns,
     state: {

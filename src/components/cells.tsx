@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { FC } from 'react';
 import styled from 'styled-components';
 import { css } from '@styled-system/css';
 import { Link } from 'react-router-dom';
+import { Table, Header, Column } from '@tanstack/react-table';
 import type { Props } from 'react-delver';
 import { Box } from '@sweatpants/box';
 import { ScreenReaderOnly } from '@sweatpants/screenreaderonly';
@@ -11,7 +12,9 @@ import { Button } from './button';
 import { RowExpandContext } from '@src/details/expandContext';
 
 type HeaderCellProps = {
-  id?: string;
+  table: Table<any>;
+  header: Header<any>;
+  column: Column<any>;
 };
 
 export const HeaderCell = (props: HeaderCellProps): JSX.Element => {
@@ -23,7 +26,7 @@ export const HeaderCell = (props: HeaderCellProps): JSX.Element => {
         textTransform: 'capitalize'
       }}
     >
-      {props.id}
+      {props.header.column.id}
     </Box>
   );
 };
