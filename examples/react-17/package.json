@@ -1,0 +1,17 @@
+{
+  "name": "react-delver-ui-example-react18",
+  "version": "0.0.1",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "delver start",
+    "build": "delver build"
+  },
+  "author": "jonambas",
+  "license": "MIT",
+  "dependencies": {
+    "react": "^17.0.2",
+    "react-delver-ui": "../../",
+    "react-dom": "^17.0.2"
+  }
+}
