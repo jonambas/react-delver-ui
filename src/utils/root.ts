@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-const use18 = window.__delverConfig.use18;
+const use18 = __delverConfig.use18;
 
 export const renderRoot = async (
   node: React.ReactNode,
