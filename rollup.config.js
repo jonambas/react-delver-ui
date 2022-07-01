@@ -21,5 +21,7 @@ export default defineConfig({
     'perf_hooks',
     ...Object.keys(pkg.dependencies)
   ],
-  plugins: [nodeResolve(), typescript()]
+  plugins: [nodeResolve(), typescript({
+    include: ['lib/*.ts']
+  })]
 });
