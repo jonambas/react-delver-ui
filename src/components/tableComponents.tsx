@@ -2,7 +2,15 @@ import React, { FC, PropsWithChildren } from 'react';
 import styled from 'styled-components';
 import css from '@styled-system/css';
 import { Box } from '@sweatpants/box';
-import type { Header, SortDirection, Cell } from '@tanstack/react-table';
+import {
+  Table,
+  Header,
+  Column,
+  SortDirection,
+  Cell,
+  flexRender
+} from '@tanstack/react-table';
+import type { Result } from 'react-delver';
 import { ArrowDown, ArrowUp } from '@src/components/icons';
 import { Button } from '@src/components/button';
 
@@ -41,8 +49,10 @@ export const ThSort: FC<
   );
 };
 
-export const Th: FC<Header<any>> = (props) => {
-  const { renderHeader, id, column, ...rest } = props;
+type ThProps = Header<Result>;
+
+export const Th: FC<ThProps> = (props) => {
+  const { column, getContext, id } = props;
   const { getCanSort, getIsSorted, getToggleSortingHandler } = column;
 
   let width = 'auto';
@@ -65,15 +75,18 @@ export const Th: FC<Header<any>> = (props) => {
     width = '45%';
   }
 
+  const render = column.columnDef.header;
+  const content = flexRender(render as string | JSX.Element, getContext());
+
   return (
     <Box as="th" pb="100" width={width}>
       <Box display="flex" justifyContent={align}>
         {getCanSort() ? (
           <ThSort isSorted={getIsSorted()} toggle={getToggleSortingHandler()}>
-            {renderHeader()}
+            {content}
           </ThSort>
         ) : (
-          renderHeader()
+          content
         )}
       </Box>
     </Box>
@@ -81,16 +94,16 @@ export const Th: FC<Header<any>> = (props) => {
 };
 
 type ThrProps = {
-  headers: Header<any>[];
+  headers: Header<Result>[];
 };
 
 export const Thr = (props: ThrProps) => {
-  const { headers, ...rest } = props;
+  const { headers } = props;
 
   return (
-    <Box as="tr" borderBottom="1px solid #000" borderColor="gray.200" {...rest}>
-      {headers.map(({ id, ...rest }) => {
-        return <Th key={id} id={id} {...rest} />;
+    <Box as="tr" borderBottom="1px solid #000" borderColor="gray.200">
+      {headers.map((header) => {
+        return <Th key={header.id} {...header} />;
       })}
     </Box>
   );
@@ -124,7 +137,7 @@ const StyledTr = styled.tr<{ $clickable?: boolean }>`
 `;
 
 type TrProps = {
-  cells?: Array<Cell<any>>;
+  cells?: Cell<Result>[];
   onClick?: React.MouseEventHandler<HTMLTableRowElement>;
 };
 
@@ -134,7 +147,12 @@ export const Tr: FC<TrProps> = (props) => {
   return (
     <StyledTr as="tr" onClick={onClick} $clickable={!!onClick}>
       {cells.map((cell) => {
-        return <Td key={cell.id}>{cell.renderCell()}</Td>;
+        const render = cell.column.columnDef.cell;
+        const content = flexRender(
+          render as string | JSX.Element,
+          cell.getContext()
+        );
+        return <Td key={cell.id}>{content}</Td>;
       })}
     </StyledTr>
   );
