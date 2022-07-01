@@ -14,8 +14,14 @@ export const makeConfig = (
       alias: {
         '@src': resolve(config.root, 'src'),
         __delverData: resolve(config.cwd, '.delverui/data.json'),
-        react: resolve(config.cwd, 'node_modules/react'),
-        'react-dom': resolve(config.cwd, 'node_modules/react-dom')
+        ...(config.use18
+          ? {}
+          : {
+              'react-dom/client': resolve(
+                config.root,
+                'src/react-dom-client-placeholder.js'
+              )
+            })
       }
     },
     define: {

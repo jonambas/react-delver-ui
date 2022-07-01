@@ -11,7 +11,7 @@
   "license": "MIT",
   "dependencies": {
     "react": "^17.0.2",
-    "react-delver-ui": "../../",
+    "react-delver-ui": "file:../../",
     "react-dom": "^17.0.2"
   }
 }

@@ -1,8 +1,7 @@
 import React from 'react';
-import ReactDOM, { version } from 'react-dom';
+import ReactDOM from 'react-dom';
 
-const use18 =
-  version && (version.startsWith('18') || version.startsWith('0.0.0'));
+const use18 = window.__delverConfig.use18;
 
 export const renderRoot = async (
   node: React.ReactNode,

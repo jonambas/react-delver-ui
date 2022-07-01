@@ -1,4 +1,4 @@
-name: Build React 18
+name: Build React 17
 
 on:
   push:

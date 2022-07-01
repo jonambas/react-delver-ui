@@ -63,7 +63,7 @@ export const lib: Lib = async ({ configPath, cwd }, exit) => {
       console.log(cyan('➜ Building React Delver UI'));
       parse(config);
       console.log(dim('➜ Building app...\n'));
-      rimraf.sync(config.outputPath);
+      rimraf.sync(resolve(config.cwd, config.outputPath));
       build(config, handleError);
     }
   };

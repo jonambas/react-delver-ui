@@ -12,8 +12,7 @@ export const build = async (
     await viteBuild({
       ...viteConfig,
       build: {
-        outDir: resolve(config.cwd, config.outputPath),
-        rollupOptions: {}
+        outDir: resolve(config.cwd, config.outputPath)
       }
     });
   } catch (e) {

@@ -6,3 +6,9 @@ export type Config = ParserConfig & {
   outputPath?: string;
   openBrowser?: boolean;
 };
+
+export type InternalConfig = {
+  use18?: boolean;
+  cwd?: string;
+  root?: string;
+};
