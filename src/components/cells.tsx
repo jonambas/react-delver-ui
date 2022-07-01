@@ -15,7 +15,6 @@ type HeaderCellProps = {
 };
 
 export const HeaderCell = (props: HeaderCellProps): JSX.Element => {
-  console.log(props);
   return (
     <Box
       fontWeight="400"
@@ -34,8 +33,14 @@ type CellProps = {
 };
 
 const StyledNameLink = styled(Box)`
+  ${css({ borderRadius: '200' })}
   &:hover {
     ${css({ color: 'blue.active' })}
+  }
+  &:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 2px #fff,
+      0 0 0 4px ${({ theme }) => theme.colors.blue.active};
   }
 `;
 

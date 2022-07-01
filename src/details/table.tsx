@@ -7,7 +7,8 @@ import {
   getFilteredRowModel,
   getSortedRowModel,
   PaginationState,
-  SortingState
+  SortingState,
+  Cell
 } from '@tanstack/react-table';
 import { Box } from '@sweatpants/box';
 import { Row } from '__delverData';
@@ -22,7 +23,7 @@ import {
   ActionCell
 } from '@src/components/cells';
 
-import { RowExpandContextProvider } from './expandContext';
+import { RowExpandContext, RowExpandContextProvider } from './expandContext';
 
 type RowType<T> = T extends Array<infer Single> ? Single : never;
 type Instance = RowType<Row['instances']>;
@@ -46,8 +47,7 @@ const columns = [
   table.createDataColumn('props', {
     id: 'props',
     header: (p) => <HeaderCell id={p.header.id} />,
-    cell: PropsCell,
-    enableSorting: false
+    cell: PropsCell
   }),
   table.createDataColumn('props', {
     id: 'actions',
@@ -101,9 +101,13 @@ export const Table: FC<{ instances: Row['instances'] }> = (props) => {
         </thead>
         <tbody>
           {instance.getRowModel().rows.map((row) => {
+            const canExpand = row.getValue('props').length;
             return (
-              <RowExpandContextProvider>
-                <Tr key={row.id} cells={row.getVisibleCells()} />
+              <RowExpandContextProvider key={row.id}>
+                <TrWithContext
+                  cells={row.getVisibleCells()}
+                  canExpand={canExpand}
+                />
               </RowExpandContextProvider>
             );
           })}
@@ -130,4 +134,15 @@ export const Table: FC<{ instances: Row['instances'] }> = (props) => {
       </Box>
     </Box>
   );
+};
+
+type TrWithContextProps = {
+  cells: Cell<any>[];
+  canExpand: boolean;
+};
+
+const TrWithContext: FC<TrWithContextProps> = (props) => {
+  const { expand, toggle } = React.useContext(RowExpandContext);
+  const onClick = props.canExpand ? () => toggle(!expand) : undefined;
+  return <Tr cells={props.cells} onClick={onClick} />;
 };

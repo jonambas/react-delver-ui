@@ -105,7 +105,8 @@ export const Td = (props: React.PropsWithChildren<{}>) => {
   );
 };
 
-const StyledTr = styled.tr`
+const StyledTr = styled.tr<{ $clickable?: boolean }>`
+  ${({ $clickable }) => ($clickable ? 'cursor: pointer;' : '')}
   ${css({
     borderBottom: '400'
   })}
@@ -124,12 +125,14 @@ const StyledTr = styled.tr`
 
 type TrProps = {
   cells?: Array<Cell<any>>;
+  onClick?: React.MouseEventHandler<HTMLTableRowElement>;
 };
 
-export const Tr: FC<PropsWithChildren<TrProps>> = (props) => {
-  const { cells, ...rest } = props;
+export const Tr: FC<TrProps> = (props) => {
+  const { cells, onClick } = props;
+
   return (
-    <StyledTr as="tr" {...rest}>
+    <StyledTr as="tr" onClick={onClick} $clickable={!!onClick}>
       {cells.map((cell) => {
         return <Td key={cell.id}>{cell.renderCell()}</Td>;
       })}

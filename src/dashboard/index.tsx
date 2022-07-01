@@ -12,6 +12,7 @@ import {
   SortingState
 } from '@tanstack/react-table';
 import uniqby from 'lodash.uniqby';
+import { useNavigate } from 'react-router-dom';
 import data, { Row } from '__delverData';
 
 import { Button } from '@src/components/button';
@@ -73,6 +74,7 @@ const columns = [
 ];
 
 const Table = () => {
+  const navigate = useNavigate();
   const [global, setGlobal] = React.useState({ search: '', from: '' });
   const [sorting, setSorting] = React.useState<SortingState>([
     { id: 'count', desc: true }
@@ -153,7 +155,18 @@ const Table = () => {
             </thead>
             <tbody>
               {instance.getRowModel().rows.map((row) => {
-                return <Tr key={row.id} cells={row.getVisibleCells()} />;
+                const name = row.getValue('name').toLowerCase();
+                const onClick = () => {
+                  navigate(`/component/${name}`);
+                };
+
+                return (
+                  <Tr
+                    key={row.id}
+                    cells={row.getVisibleCells()}
+                    onClick={onClick}
+                  />
+                );
               })}
             </tbody>
           </Box>

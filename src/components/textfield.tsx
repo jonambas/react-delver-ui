@@ -19,6 +19,12 @@ const StyledWrapper = styled(Box)`
       borderColor: 'blue.active'
     })}
   }
+  &:focus-within,
+  &:focus-within:hover {
+    ${css({
+      border: '1px solid transparent'
+    })}
+  }
 `;
 
 const StyledInput = styled(Box)`
