@@ -15,7 +15,7 @@ function ComponentA() {
 function ComponentB() {
   return (
     <>
-      <ComponentA />
+      <ComponentA {...spread} undefinedProp={undefined} nullProp={null} />
       <Foo
         string="string"
         implicitTrue
