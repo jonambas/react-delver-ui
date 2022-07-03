@@ -43,10 +43,7 @@ const StyledContainer = styled(Box)`
 `;
 
 type SelectProps = RSelect.SelectProps & {
-  options?: Array<{
-    value: unknown;
-    text: React.ReactNode;
-  }>;
+  options?: Array<string>;
 };
 
 const StyledOptionText = styled(Box)`
@@ -81,7 +78,7 @@ const StyledOption = styled(Box)`
 `;
 
 export const Select: React.FC<SelectProps> = (props) => {
-  const { value, onValueChange, options, ...rest } = props;
+  const { value, onValueChange, options } = props;
 
   return (
     <RSelect.Root value={value} onValueChange={onValueChange}>
@@ -122,14 +119,10 @@ export const Select: React.FC<SelectProps> = (props) => {
             {options &&
               options.map((opt) => {
                 return (
-                  <RSelect.Item
-                    key={String(opt.value)}
-                    value={opt.value as string}
-                    asChild
-                  >
+                  <RSelect.Item key={String(opt)} value={opt as string} asChild>
                     <StyledOption>
                       <RSelect.ItemText asChild>
-                        <StyledOptionText>{opt.text}</StyledOptionText>
+                        <StyledOptionText>{opt}</StyledOptionText>
                       </RSelect.ItemText>
                     </StyledOption>
                   </RSelect.Item>

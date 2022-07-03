@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import { css } from '@styled-system/css';
 import { Link } from 'react-router-dom';
@@ -36,9 +36,12 @@ type CellProps = {
 };
 
 const StyledNameLink = styled(Box)`
-  ${css({ borderRadius: '200' })}
+  text-decoration: none;
+  ${css({
+    borderRadius: '200'
+  })}
   &:hover {
-    ${css({ color: 'blue.active' })}
+    text-decoration: underline;
   }
   &:focus-visible {
     outline: none;
@@ -54,11 +57,14 @@ export const NameCell = (props: CellProps): JSX.Element => {
       as={Link}
       to={`/component/${String(props.getValue()).toLowerCase()}`}
       p="200"
+      color="blue.active"
       fontWeight="600"
       fontSize="300"
-      color="gray.900"
     >
-      <Box py="2px">{props.getValue()}</Box>
+      <Box py="2px">
+        <ScreenReaderOnly as="span">View component details:</ScreenReaderOnly>
+        {props.getValue()}
+      </Box>
     </StyledNameLink>
   );
 };
@@ -187,19 +193,6 @@ type ActionCellProps = {
   data: Props;
 };
 
-const StyledActionCell = styled(Box)<{ $show?: any }>`
-  opacity: 0;
-  ${({ $show }) => ($show ? `opacity: 1;` : ``)}
-
-  &:hover,
-  &:focus-within {
-    opacity: 1 !important;
-  }
-  tr:hover & {
-    opacity: 1;
-  }
-`;
-
 export const ActionCell = (props: ActionCellProps): JSX.Element => {
   const { data } = props;
   const { expand, toggle } = React.useContext(RowExpandContext);
@@ -209,10 +202,10 @@ export const ActionCell = (props: ActionCellProps): JSX.Element => {
   }
 
   return (
-    <StyledActionCell textAlign="right" py="200" $show={expand}>
-      <Button onClick={() => toggle(!expand)} py="0">
+    <Box textAlign="right" py="200">
+      <Button onClick={() => toggle(!expand)} py="0px">
         {expand ? 'Hide Props' : 'Expand Props'}
       </Button>
-    </StyledActionCell>
+    </Box>
   );
 };

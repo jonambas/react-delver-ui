@@ -118,8 +118,7 @@ export const Td = (props: React.PropsWithChildren<{}>) => {
   );
 };
 
-const StyledTr = styled.tr<{ $clickable?: boolean }>`
-  ${({ $clickable }) => ($clickable ? 'cursor: pointer;' : '')}
+const StyledTr = styled.tr`
   ${css({
     borderBottom: '400'
   })}
@@ -142,10 +141,10 @@ type TrProps = {
 };
 
 export const Tr: FC<TrProps> = (props) => {
-  const { cells, onClick } = props;
+  const { cells } = props;
 
   return (
-    <StyledTr as="tr" onClick={onClick} $clickable={!!onClick}>
+    <StyledTr as="tr">
       {cells.map((cell) => {
         const render = cell.column.columnDef.cell;
         const content = flexRender(

@@ -40,7 +40,7 @@ const StyledButton = styled.button<{ $active?: boolean; py?: string }>`
 export const Button = polymorphicForwardRef<
   'button',
   { active?: boolean; py?: string }
->(function Button(props) {
-  const { active, ...rest } = props;
-  return <StyledButton type="button" $active={active} {...rest} />;
+>(function Button(props, ref) {
+  const { active = false, ...rest } = props;
+  return <StyledButton type="button" $active={active} {...rest} ref={ref} />;
 });

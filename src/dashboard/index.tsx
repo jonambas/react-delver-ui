@@ -32,9 +32,10 @@ import { Select } from '@src/components/select';
 const config = __delverConfig;
 
 const fromOptions = data
-  .filter(({ from }) => from !== 'indeterminate')
-  .map(({ from }) => ({ value: from, text: from }));
-const uniqFromOptions = uniqby(fromOptions, ({ value }) => value);
+  .filter(({ from }) => from !== 'indeterminate' && from !== undefined)
+  .map(({ from }) => from);
+const uniqFromOptions = uniqby(fromOptions, (v: string) => v);
+const total = data.reduce((acc, c) => acc + c.count, 0);
 
 const filter: FilterFn<Result> = (row, columnId, values = {}, addMeta) => {
   const { search, from } = values;
@@ -102,6 +103,9 @@ const Table = () => {
   });
 
   const noResults = instance.getFilteredRowModel().rows.length === 0;
+  const filteredTotal = instance.getFilteredRowModel().rows.reduce((acc, c) => {
+    return acc + c.original.count;
+  }, 0);
 
   return (
     <>
@@ -131,8 +135,10 @@ const Table = () => {
       </Box>
 
       <Box fontSize="100" mb="600">
-        Showing {instance.getFilteredRowModel().rows.length} of{' '}
-        {instance.getCoreRowModel().rows.length} components
+        Showing {instance.getFilteredRowModel().rows.length.toLocaleString()} of{' '}
+        {instance.getCoreRowModel().rows.length.toLocaleString()} unique
+        components, and {filteredTotal.toLocaleString()} of{' '}
+        {total.toLocaleString()} component instances.
       </Box>
       {noResults ? (
         <Box fontSize="300" py="200" textAlign="center">
