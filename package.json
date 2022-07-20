@@ -27,7 +27,7 @@
   },
   "homepage": "https://github.com/jonambas/react-delver-ui#readme",
   "dependencies": {
-    "@radix-ui/react-select": "^0.1.2-rc.50",
+    "@radix-ui/react-select": "^1.0.0",
     "@styled-system/css": "^5.1.5",
     "@sweatpants/box": "^0.0.8",
     "@sweatpants/button": "^0.0.7",
