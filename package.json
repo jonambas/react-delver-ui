@@ -36,7 +36,7 @@
     "@sweatpants/stack": "^0.0.7",
     "@sweatpants/theme": "^0.0.7",
     "@sweatpants/utils": "^0.0.7",
-    "@tanstack/react-table": "8.1.1",
+    "@tanstack/react-table": "8.11.7",
     "esbuild": "^0.14.47",
     "find-up": "^6.3.0",
     "lodash.uniqby": "^4.7.0",
